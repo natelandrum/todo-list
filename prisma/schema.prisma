@@ -1,0 +1,111 @@
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  image         String?
+  emailVerified DateTime?
+
+  accounts      Account[]
+  sessions      Session[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tasks         Task[] // One-to-Many: A user has many tasks
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// Tasks table
+model Task {
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+  status      String  @default("pending")
+  priority    String  @default("medium")
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  completedAt DateTime?
+
+  userId      String
+  user        User    @relation(fields: [userId], references: [id])
+
+  tags        Tag[]
+  subtasks    Subtask[]
+  recurring   RecurringTask?
+}
+
+// Tags table (Many-to-Many)
+model Tag {
+  id    String @id @default(uuid())
+  name  String @unique
+  tasks Task[]
+}
+
+// Subtasks table
+model Subtask {
+  id          String  @id @default(uuid())
+  title       String
+  completed   Boolean @default(false)
+  taskId      String
+  task        Task    @relation(fields: [taskId], references: [id])
+}
+
+// Recurring tasks table
+model RecurringTask {
+  id             String  @id @default(uuid())
+  taskId         String  @unique
+  task           Task    @relation(fields: [taskId], references: [id])
+  repeat         String
+  interval       Int     @default(1)
+  endType        String  @default("never")
+  endDate        DateTime?
+  endOccurrences Int?
+}
