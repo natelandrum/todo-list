@@ -19,3 +19,17 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer components {
+  .neon-glow {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+
+  .shadow-neon:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  }
+
+  .neon-checkbox {
+    accent-color: cyan;
+  }
+}
