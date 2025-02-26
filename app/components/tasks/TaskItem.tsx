@@ -18,8 +18,7 @@ export default function TaskItem({ task }: { task: PrismaTask }) {
   return (
     <div
       className={clsx(
-        "bg-gray-900 p-6 rounded-lg shadow-lg border border-gray-700 text-white transform transition-all hover:shadow-neon",
-        "neon-glow"
+        "bg-gray-900 m-6 p-6 rounded-lg shadow-lg border border-gray-700 text-white transform transition-all hover:shadow-neon"
       )}
     >
       {/* Header */}
