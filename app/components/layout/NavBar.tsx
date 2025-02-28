@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SignInButton from "@/components/auth/SignInButton";
 import SignOutButton from "@/components/auth/SignOutButton";
 import { auth } from "@/auth";
 import Image from "next/image";
@@ -20,7 +19,7 @@ export default async function NavBar() {
             <p>ToDo List</p>
           </div>
         </Link>
-        {session ? <SignOutButton /> : <SignInButton />}
+        {session ? <SignOutButton /> : null}
       </div>
     );
 }

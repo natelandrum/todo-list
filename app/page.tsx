@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     tasks.length > 0 ? (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold">Tasks</h1>
+      <h1 className="ml-6 text-4xl font-bold">Tasks</h1>
       <TaskList tasks={tasks} />
     </div>
     ) : (
