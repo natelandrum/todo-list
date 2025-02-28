@@ -26,9 +26,13 @@ export default function Dropdown({
 
   return (
     <div className="relative mt-4 md:mt-0 w-full md:w-56">
+      <label className="sr-only" htmlFor={label}>
+        {label}
+      </label>
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className="bg-white rounded-3xl w-full border cursor-pointer border-gray-300 shadow-sm pl-3 pr-10 py-2 text-left focus:outline-none"
+        id={label}
       >
         {selectedValue}
       </button>
