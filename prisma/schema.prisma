@@ -67,7 +67,6 @@ model Task {
   id          String  @id @default(uuid())
   title       String
   description String?
-  status      String  @default("pending")
   priority    String  @default("medium")
   dueDate     DateTime?
   createdAt   DateTime @default(now())
@@ -75,7 +74,7 @@ model Task {
   completedAt DateTime?
 
   userId      String
-  user        User    @relation(fields: [userId], references: [id])
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   tags        Tag[]
   subtasks    Subtask[]
@@ -95,14 +94,14 @@ model Subtask {
   title       String
   completed   Boolean @default(false)
   taskId      String
-  task        Task    @relation(fields: [taskId], references: [id])
+  task        Task    @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
 
 // Recurring tasks table
 model RecurringTask {
   id             String  @id @default(uuid())
   taskId         String  @unique
-  task           Task    @relation(fields: [taskId], references: [id])
+  task           Task    @relation(fields: [taskId], references: [id], onDelete: Cascade)
   repeat         String
   interval       Int     @default(1)
   endType        String  @default("never")

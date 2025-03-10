@@ -1,15 +1,8 @@
 import { prisma } from "@/prisma";
 import { PrismaTask } from "./definitions";
 
-export async function getUserId(email: string): Promise<string | undefined> {
-    const user = await prisma.user.findUnique({
-        where: { email },
-    })
-    return user?.id;
-}
 
-export async function getTasks(email: string): Promise<PrismaTask[]> {
-    const userId = await getUserId(email);
+export async function getTasks(userId: string): Promise<PrismaTask[]> {
     if (!userId) return [];
 
     return await prisma.task.findMany({
