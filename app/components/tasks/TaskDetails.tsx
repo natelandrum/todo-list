@@ -5,7 +5,7 @@ export default function TaskDetails({
   handleInputChange,
 }: {
   localTask: LocalTask;
-  handleInputChange: (field: keyof LocalTask, value: any) => void;
+  handleInputChange: (field: keyof LocalTask, value: LocalTask[keyof LocalTask]) => void;
 }) {
   return (
     <>

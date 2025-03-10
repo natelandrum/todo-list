@@ -6,7 +6,7 @@ export default function DueDate({
     handleInputChange,
 }: {
     localTask: LocalTask;
-    handleInputChange: (field: keyof LocalTask, value: any) => void;
+    handleInputChange: (field: keyof LocalTask, value: LocalTask[keyof LocalTask]) => void;
 }) {
     const [selectedDate, setSelectedDate] = useState<Date | null>(
         localTask.dueDate ? new Date(localTask.dueDate) : null

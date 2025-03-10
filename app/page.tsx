@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import TaskList from "@/components/tasks/TaskList";
 import { getTasks } from "@/lib/data";
 import { PrismaTask } from "@/lib/definitions";

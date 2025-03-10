@@ -24,7 +24,10 @@ export default function Tags({
           onClick={() =>
             setLocalTags([
               ...localTags,
-               {name: ""},
+              {
+                id: Math.random().toString(),
+                name: "",
+              },
             ])
           }
           className="mt-2 px-2 py-1 bg-blue-600 text-white rounded"

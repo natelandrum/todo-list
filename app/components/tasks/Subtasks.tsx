@@ -27,6 +27,7 @@ export default function Subtasks({
             setLocalSubtasks([
               ...localSubtasks,
               {
+                id: Math.random().toString(),
                 title: "",
                 completed: false,
               },

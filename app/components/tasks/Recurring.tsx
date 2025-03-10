@@ -18,7 +18,7 @@ export default function Recurring({
     React.SetStateAction<LocalRecurring | null>>;
   handleRecurringChange: (
     field: keyof LocalRecurring,
-    value: any
+    value: LocalRecurring[keyof LocalRecurring]
   ) => void;
 }) {
   return (

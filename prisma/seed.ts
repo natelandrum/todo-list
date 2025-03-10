@@ -16,7 +16,6 @@ async function main() {
         data: {
             title: "Finish project",
             description: "Complete the final project submission",
-            status: "in-progress",
             priority: "high",
             dueDate: new Date("2025-02-20T12:00:00Z"),
             userId: user.id, // Assign to the user
@@ -27,7 +26,6 @@ async function main() {
         data: {
             title: "Grocery shopping",
             description: "Buy groceries for the week",
-            status: "pending",
             priority: "medium",
             dueDate: new Date("2025-02-18T18:00:00Z"),
             userId: user.id, // Assign to the user

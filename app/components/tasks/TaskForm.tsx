@@ -96,8 +96,7 @@ export default function TaskForm({
         localTask.tags = localTags;
         localTask.recurring = localRecurring;
 
-        let response: AxiosResponse<any, any> | undefined;
-
+        let response: AxiosResponse | undefined;
         try {
           setLoading(true);
           if (mode === "create") {
@@ -145,6 +144,7 @@ export default function TaskForm({
           state.message =
             mode === "create" ? "Error Creating Task" : "Error Updating Task";
           setMessage(state.message);
+          console.error("Task handling error:", error);
         } finally {
           setLoading(false);
         }
@@ -152,7 +152,7 @@ export default function TaskForm({
     };
 
     handleTask();
-  }, [state.message]);
+  }, [state.message, localRecurring, localSubtasks, localTags, localTask, mode, setEditing, setLocalTasks, setMessage, setMode, state, userId]);
 
   const toggleSubtaskCompletion = (index: number) => {
     const updatedSubtasks = [...localSubtasks];
@@ -160,11 +160,11 @@ export default function TaskForm({
     setLocalSubtasks(updatedSubtasks);
   };
 
-  const handleInputChange = (field: keyof LocalTask, value: any) => {
+  const handleInputChange = (field: keyof LocalTask, value: LocalTask[keyof LocalTask]) => {
     setLocalTask({ ...localTask, [field]: value });
   };
 
-  const handleRecurringChange = (field: keyof LocalRecurring, value: any) => {
+  const handleRecurringChange = (field: keyof LocalRecurring, value: LocalRecurring[keyof LocalRecurring]) => {
     if (localRecurring) {
       setLocalRecurring({ ...localRecurring, [field]: value });
     }
