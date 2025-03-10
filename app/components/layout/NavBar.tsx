@@ -1,10 +1,10 @@
 import Link from "next/link";
 import SignOutButton from "@/components/auth/SignOutButton";
-import { auth } from "@/auth";
 import Image from "next/image";
+import getSession from "@/lib/getSession";
 
 export default async function NavBar() {
-    const session = await auth();
+    const session = await getSession();
     return (
       <div className="flex justify-between items-center p-4 bg-gray-800 text-white">
         <Link href="/">
