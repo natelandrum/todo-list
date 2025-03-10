@@ -21,7 +21,8 @@ export default function FilterOptions({
         "Low Priority",
         "Due Today",
         "Due Tomorrow",
-        "Due This Week",
+        "Due Within a Week",
+        "Past Due",
       ]}
       selectedValue={selectedFilter}
       setSelectedValue={setSelectedFilter}

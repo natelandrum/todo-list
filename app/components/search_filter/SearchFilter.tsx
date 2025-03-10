@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PrismaTask } from "@/lib/definitions";
+import { LocalTask } from "@/lib/definitions";
 import SearchBar from "./SearchBar";
 import SortOptions from "./SortOptions";
 import FilterOptions from "./FilterOptions";
 
 type SearchFilterProps = {
-  listOfTasks: PrismaTask[];
-  setFilteredTasks: (tasks: PrismaTask[]) => void;
+  listOfTasks: LocalTask[];
+  setFilteredTasks: (tasks: LocalTask[]) => void;
 };
 
 export default function SearchFilter({
@@ -25,7 +25,14 @@ export default function SearchFilter({
 
     if (searchTerm) {
       filtered = filtered.filter((task) =>
-        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+        task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        task.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        task.subtasks.some((subtask) =>
+          subtask.title.toLowerCase().includes(searchTerm.toLowerCase())
+        ) ||
+        task.tags.some((tag) =>
+          tag.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       );
     }
 
@@ -44,9 +51,39 @@ export default function SearchFilter({
           filtered = filtered.filter(
             (task) =>
               task.dueDate &&
-              new Date(task.dueDate).toDateString() ===
-                new Date().toDateString()
+              new Date(task.dueDate).toISOString().split("T")[0] ===
+                new Date().toISOString().split("T")[0]
           );
+          break;
+        case "Due Tomorrow":
+          filtered = filtered.filter(
+            (task) =>
+              task.dueDate &&
+              new Date(task.dueDate).toISOString().split("T")[0] ===
+                new Date(new Date().setDate(new Date().getDate() + 1))
+                  .toISOString()
+                  .split("T")[0]
+          );
+          break;
+        case "Due Within a Week":
+          filtered = filtered.filter(
+            (task) =>
+              task.dueDate &&
+              new Date(task.dueDate).toISOString().split("T")[0] >=
+                new Date().toISOString().split("T")[0] &&
+              new Date(task.dueDate).toISOString().split("T")[0] <=
+                new Date(new Date().setDate(new Date().getDate() + 7))
+                  .toISOString()
+                  .split("T")[0]
+          );
+          break;
+          case "Past Due":
+            filtered = filtered.filter(
+              (task) =>
+                task.dueDate &&
+                new Date(task.dueDate).toISOString().split("T")[0] <
+                  new Date().toISOString().split("T")[0]
+            );
           break;
         default:
           break;
