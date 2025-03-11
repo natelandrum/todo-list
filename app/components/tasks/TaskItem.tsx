@@ -73,12 +73,16 @@ export default function TaskItem({
         completed: updatedSubtasks[index].completed,
       }));
       if (response.status === 500) {
-        setCompleted((prev) => !prev);
+        const updatedSubtasks = [...localSubtasks];
+        updatedSubtasks[index].completed = !updatedSubtasks[index].completed;
+        setLocalSubtasks(updatedSubtasks);
         setMessage("Error toggling subtask completion");
       }
     } catch (error) {
       console.error("Error toggling subtask completion:", error);
-      setCompleted((prev) => !prev);
+      const updatedSubtasks = [...localSubtasks];
+      updatedSubtasks[index].completed = !updatedSubtasks[index].completed;
+      setLocalSubtasks(updatedSubtasks);
       setMessage("Error toggling subtask completion");
     }
   };
