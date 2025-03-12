@@ -10,7 +10,6 @@ export async function getTasks(userId: string): Promise<PrismaTask[]> {
         include: {
             subtasks: true,
             tags: true,
-            recurring: true,
         },
         orderBy: {
             dueDate: "asc", // Sort tasks by due date (optional)

@@ -1,9 +1,8 @@
-import { Task, Subtask, Tag, RecurringTask } from '@prisma/client';
+import { Task, Subtask, Tag } from '@prisma/client';
 
 export type PrismaTask = Task & {
   subtasks: Subtask[];
   tags: Tag[];
-  recurring: RecurringTask | null;
 }
 
 export type LocalTask = {
@@ -17,17 +16,7 @@ export type LocalTask = {
   updatedAt: Date;
   subtasks: LocalSubtask[];
   tags: LocalTag[];
-  recurring: LocalRecurring | null;
 }
-
-export type LocalRecurring = {
-  repeat: string;
-  interval: number;
-  endType: string;
-  endDate: Date | null;
-  endOccurrences: number | null;
-}
-
 export type LocalSubtask = {
     id: string | undefined;
     title: string;

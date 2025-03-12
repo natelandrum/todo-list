@@ -11,12 +11,10 @@ export async function addTask(task: PrismaTask, userId: string): Promise<PrismaT
             userId: userId,
             subtasks: task.subtasks ? { create: task.subtasks } : undefined,
             tags: task.tags ? { create: task.tags} : undefined,
-            recurring: task.recurring ? { create: task.recurring } : undefined,
         },
         include: {
             subtasks: true,
             tags: true,
-            recurring: true,
         },
     });
 }
@@ -58,20 +56,10 @@ export async function updateTask(task: LocalTask): Promise<PrismaTask> {
                 connect: tagsToConnect,
                 create: tagsToCreate,
             },
-
-            recurring: task.recurring
-                ? {
-                    upsert: {
-                        create: task.recurring,
-                        update: task.recurring,
-                    },
-                }
-                : undefined,
         },
         include: {
             subtasks: true,
             tags: true,
-            recurring: true,
         },
     });
 }

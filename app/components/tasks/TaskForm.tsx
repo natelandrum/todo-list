@@ -6,11 +6,10 @@ import { validateTask } from "@/lib/validations";
 import TaskDetails from "./TaskDetails";
 import Subtasks from "./Subtasks";
 import Tags from "./Tags";
-import Recurring from "./Recurring";
 import DueDate from "./DueDate";
 import { Button } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
-import { LocalRecurring, LocalTask } from "@/lib/definitions";
+import { LocalTask } from "@/lib/definitions";
 import { convertPrismaToLocal } from "@/lib/utils";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -35,7 +34,6 @@ const initialTaskState: LocalTask = {
   completedAt: null,
   tags: [],
   subtasks: [],
-  recurring: null,
 };
 
 export default function TaskForm({
@@ -55,9 +53,7 @@ export default function TaskForm({
   const [localTask, setLocalTask] = useState(task || initialTaskState);
   const [localSubtasks, setLocalSubtasks] = useState(task?.subtasks || []);
   const [localTags, setLocalTags] = useState(task?.tags || []);
-  const [localRecurring, setLocalRecurring] = useState<LocalRecurring | null>(
-    task?.recurring || null
-  );
+
   const [loading, setLoading] = useState(false);
 
   const [state, dispatch] = useActionState(validateTask, initialState);
@@ -94,7 +90,6 @@ export default function TaskForm({
       if (state.message === "success") {
         localTask.subtasks = localSubtasks;
         localTask.tags = localTags;
-        localTask.recurring = localRecurring;
 
         let response: AxiosResponse | undefined;
         try {
@@ -113,7 +108,6 @@ export default function TaskForm({
             setLocalTask(initialTaskState);
             setLocalSubtasks([]);
             setLocalTags([]);
-            setLocalRecurring(null);
             if (mode === "editing") {
               setLocalTasks((prev) =>
                 prev.map((t) =>
@@ -152,7 +146,7 @@ export default function TaskForm({
     };
 
     handleTask();
-  }, [state.message, localRecurring, localSubtasks, localTags, localTask, mode, setEditing, setLocalTasks, setMessage, setMode, state, userId]);
+  }, [state.message, localSubtasks, localTags, localTask, mode, setEditing, setLocalTasks, setMessage, setMode, state, userId]);
 
   const toggleSubtaskCompletion = (index: number) => {
     const updatedSubtasks = [...localSubtasks];
@@ -162,12 +156,6 @@ export default function TaskForm({
 
   const handleInputChange = (field: keyof LocalTask, value: LocalTask[keyof LocalTask]) => {
     setLocalTask({ ...localTask, [field]: value });
-  };
-
-  const handleRecurringChange = (field: keyof LocalRecurring, value: LocalRecurring[keyof LocalRecurring]) => {
-    if (localRecurring) {
-      setLocalRecurring({ ...localRecurring, [field]: value });
-    }
   };
 
   return (
@@ -192,11 +180,6 @@ export default function TaskForm({
           toggleSubtaskCompletion={toggleSubtaskCompletion}
         />
         <Tags localTags={localTags} setLocalTags={setLocalTags} />
-        <Recurring
-          localRecurring={localRecurring}
-          setLocalRecurring={setLocalRecurring}
-          handleRecurringChange={handleRecurringChange}
-        />
         <DueDate localTask={localTask} handleInputChange={handleInputChange} />
         <Button
           type="submit"

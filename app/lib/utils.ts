@@ -19,12 +19,5 @@ export function convertPrismaToLocal(task: PrismaTask): LocalTask {
             id: tag.id,
             name: tag.name,
         })),
-        recurring: task.recurring ? {
-            repeat: task.recurring.repeat,
-            interval: task.recurring.interval,
-            endType: task.recurring.endType,
-            endDate: task.recurring.endDate,
-            endOccurrences: task.recurring.endOccurrences,
-        } : null,
     };
 }
