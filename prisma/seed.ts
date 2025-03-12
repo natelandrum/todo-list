@@ -57,16 +57,6 @@ async function main() {
         ],
     });
 
-    // Seed Recurring Tasks
-    await prisma.recurringTask.create({
-        data: {
-            taskId: task2.id,
-            repeat: "weekly",
-            interval: 1,
-            endType: "never",
-        },
-    });
-
     console.log("✅ Database has been seeded!");
 }
 

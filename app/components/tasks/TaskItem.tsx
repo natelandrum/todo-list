@@ -270,36 +270,6 @@ export default function TaskItem({
               <span className="text-gray-500 text-xs">No tags</span>
             )}
           </div>
-
-          {/* Recurring Information */}
-          {task.recurring && (
-            <div className="mt-6 ml-7 p-4 border border-cyan-400 rounded">
-              <h4 className="text-sm font-semibold text-cyan-300">
-                Recurring Task
-              </h4>
-              <p className="text-xs text-cyan-200">
-                Repeats: Every{" "}
-                {task.recurring.interval > 1 ? task.recurring.interval : ""}{" "}
-                {task.recurring.repeat === "daily"
-                  ? "day"
-                  : task.recurring.repeat === "weekly"
-                  ? "week"
-                  : task.recurring.repeat === "monthly"
-                  ? "month"
-                  : "year"}
-                {task.recurring.interval > 1 ? "s" : ""}
-              </p>
-              {task.recurring.endType !== "never" && (
-                <p className="text-xs text-cyan-200">
-                  Ends:{" "}
-                  {task.recurring.endType === "date"
-                    ? task.recurring.endDate &&
-                      new Date(task.recurring.endDate).toLocaleDateString()
-                    : `${task.recurring.endOccurrences} occurrences`}
-                </p>
-              )}
-            </div>
-          )}
         </div>
 
         {/* Due Date and Timestamps */}
