@@ -10,7 +10,7 @@ export default function SearchBar({
   setSearchTerm,
 }: SearchBarProps) {
   return (
-    <>
+    <div className="w-full">
       <label className="sr-only" htmlFor="search">
         Search
       </label>
@@ -19,10 +19,10 @@ export default function SearchBar({
         id="search"
         name="search"
         placeholder="Search tasks..."
-        className="w-full md:max-w-[50%] p-4 h-10 rounded-3xl text-black"
+        className="w-full p-2 sm:p-4 h-10 rounded-3xl text-black"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-    </>
+    </div>
   );
 }

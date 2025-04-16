@@ -161,7 +161,7 @@ export default function TaskForm({
   return (
     <div
       className={clsx(
-        "bg-gray-900 m-6 p-6 rounded-lg shadow-lg border border-gray-700 text-white transform transition-all hover:shadow-neon"
+        "bg-gray-900 mx-3 my-4 sm:m-6 p-4 sm:p-6 rounded-lg shadow-lg border border-gray-700 text-white transform transition-all hover:shadow-neon"
       )}
     >
       {loading && (
@@ -181,27 +181,31 @@ export default function TaskForm({
         />
         <Tags localTags={localTags} setLocalTags={setLocalTags} />
         <DueDate localTask={localTask} handleInputChange={handleInputChange} />
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{ marginTop: "1rem" }}
-          loading={loading}
-        >
-          {mode === "create" ? "Add Task" : "Update Task"}
-        </Button>
-        <Button
-          type="button"
-          color="error"
-          variant="contained"
-          sx={{ marginTop: "1rem", marginLeft: "1rem" }}
-          onClick={() => {
-            setMode("view");
-            setEditing("");
-          }}
-          loading={loading}
-        >
-          Cancel
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-2 mt-4">
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ marginTop: "0.5rem" }}
+            loading={loading}
+          >
+            {mode === "create" ? "Add Task" : "Update Task"}
+          </Button>
+          <Button
+            type="button"
+            color="error"
+            variant="contained"
+            fullWidth
+            sx={{ marginTop: "0.5rem" }}
+            onClick={() => {
+              setMode("view");
+              setEditing("");
+            }}
+            loading={loading}
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
       {state.errors && (
         <div role="alert" aria-live="polite" className="mt-4 text-red-500">

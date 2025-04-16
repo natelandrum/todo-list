@@ -131,9 +131,9 @@ export default function SearchFilter({
   ]);
 
   return (
-    <div className="m-6 flex flex-col md:flex-row text-black justify-around md:justify-between">
+    <div className="m-3 sm:m-6 flex flex-col gap-4">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <div className="flex md-justify-end space-x-4 md:ml-4">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <SortOptions
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}

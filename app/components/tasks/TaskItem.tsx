@@ -140,7 +140,7 @@ export default function TaskItem({
 
       {/* Title */}
       <div
-        className={clsx("flex items-center justify-between", {
+        className={clsx("flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2", {
           "mt-6": mode === "edit",
         })}
       >
@@ -157,9 +157,9 @@ export default function TaskItem({
             onClick={(e) => e.stopPropagation()}
             className="w-5 h-5 neon-checkbox"
           />
-          <h2 className="text-2xl ml-4 font-bold">{task.title}</h2>
+          <h2 className="text-xl sm:text-2xl ml-4 font-bold truncate max-w-[200px] sm:max-w-full">{task.title}</h2>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center ml-9 sm:ml-0">
           {mode === "edit" && (
             <div className="absolute right-3 top-0 flex items-center space-x-2">
               <IconButton
@@ -196,14 +196,14 @@ export default function TaskItem({
                 <WarningAmberRoundedIcon
                   color="warning"
                   fontSize="large"
-                  sx={{ marginRight: "1rem" }}
+                  sx={{ marginRight: "0.5rem" }}
                 />
               )
             : null}
 
           <span
             className={clsx(
-              "md:mt-0 px-3 py-1 text-sm font-semibold uppercase border rounded",
+              "px-3 py-1 text-sm font-semibold uppercase border rounded whitespace-nowrap",
               {
                 "text-red-400 border-red-400": task.priority === "high",
                 "text-yellow-400 border-yellow-400": task.priority === "medium",
@@ -273,8 +273,8 @@ export default function TaskItem({
         </div>
 
         {/* Due Date and Timestamps */}
-        <div className="mt-6 flex items-center justify-between text-gray-400 text-xs">
-          <p className="ml-7 text-xl">
+        <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between text-gray-400 text-xs gap-3">
+          <p className="ml-7 text-lg sm:text-xl">
             <span className="font-semibold text-gray-200">Due:</span>{" "}
             <span className="text-[#ff5b5b] drop-shadow-[0_1.2px_1.2px_rgba(166,0,0,0.8)]">
               {task.dueDate
@@ -282,7 +282,7 @@ export default function TaskItem({
                 : "No due date"}
             </span>
           </p>
-          <div>
+          <div className="ml-7 sm:ml-0">
             <p>
               <span className="font-semibold text-gray-200">Created:</span>{" "}
               {formatDate(new Date(task.createdAt))}

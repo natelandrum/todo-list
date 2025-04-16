@@ -52,30 +52,30 @@ export default function TaskList({
         listOfTasks={localTasks}
         setFilteredTasks={setFilteredTasks}
       />
-      <Button
-        variant="outlined"
-        onClick={() => handleModeChange(mode === "view" ? "create" : "view")}
-        color={mode === "create" ? "error" : "primary"}
-        sx={{ marginLeft: "1.5rem" }}
-        disabled={mode === "edit" || mode === "editing" || mode === "create"}
-      >
-        {mode === "create" ? "Cancel" : "Create Task"}
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => handleModeChange(mode === "view" ? "edit" : "view")}
-        sx={{
-          marginLeft: "1.5rem",
-          color: mode === "edit" ? "#FF0000" : "#ffe400",
-          borderColor: mode === "edit" ? "#FF0000" : "#9b870c",
-          "&:hover": {
-            borderColor: mode === "edit" ? "#E57373" : "#FFF176",
-          },
-        }}
-        disabled={mode === "create" || mode === "editing"}
-      >
-        {mode === "edit" ? "Cancel" : "Edit Task"}
-      </Button>
+      <div className="flex flex-wrap gap-2 mx-3 sm:mx-6">
+        <Button
+          variant="outlined"
+          onClick={() => handleModeChange(mode === "view" ? "create" : "view")}
+          color={mode === "create" ? "error" : "primary"}
+          disabled={mode === "edit" || mode === "editing" || mode === "create"}
+        >
+          {mode === "create" ? "Cancel" : "Create Task"}
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => handleModeChange(mode === "view" ? "edit" : "view")}
+          sx={{
+            color: mode === "edit" ? "#FF0000" : "#ffe400",
+            borderColor: mode === "edit" ? "#FF0000" : "#9b870c",
+            "&:hover": {
+              borderColor: mode === "edit" ? "#E57373" : "#FFF176",
+            },
+          }}
+          disabled={mode === "create" || mode === "editing"}
+        >
+          {mode === "edit" ? "Cancel" : "Edit Task"}
+        </Button>
+      </div>
       {mode === "create" && (
         <TaskForm
           mode={mode}
@@ -114,7 +114,7 @@ export default function TaskList({
         <div
           id="message"
           className={clsx(
-            "fixed bottom-4 right-4 z-30 bg-green-500 text-white p-4 rounded-lg shadow-lg transition-transform duration-1000 transform",
+            "fixed bottom-4 right-4 z-30 bg-green-500 text-white p-3 sm:p-4 rounded-lg shadow-lg transition-transform duration-1000 transform max-w-[90%] sm:max-w-md",
             {
               "bg-red-500": message.toLowerCase().includes("error"),
               "translate-x-0": showing,
@@ -122,7 +122,7 @@ export default function TaskList({
             }
           )}
         >
-          <p>{message.toUpperCase()}</p>
+          <p className="text-sm sm:text-base">{message.toUpperCase()}</p>
         </div>
       )}
     </Box>
